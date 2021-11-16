@@ -3,9 +3,10 @@ from .models import VideoAllProxy, VideoPublishedProxy
 
 
 class VideoAllAdmin(admin.ModelAdmin):
-    list_display = ['title', 'video_id', 'is_published']
+    list_display = ['title', 'state', 'video_id', 'is_published']
     search_fields = ['video_id']
-    list_filter = ['active', 'video_id']
+    list_filter = ['active', 'state']
+    readonly_fields = ['id', 'publish_timestamp']
 
     class Meta:
         model = VideoAllProxy
@@ -18,6 +19,7 @@ admin.site.register(VideoAllProxy, VideoAllAdmin)
 class VideoPublishedProxyAdmin(admin.ModelAdmin):
     list_display = ['title', 'video_id']
     search_fields = ['video_id']
+    readonly_fields = ['id', 'publish_timestamp']
 
     class Meta:
         model = VideoPublishedProxy
