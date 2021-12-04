@@ -4,6 +4,8 @@ from django.utils.text import slugify
 from django.db.models.signals import pre_save
 from djangoflix.db.models import PublishStateOptions
 from djangoflix.db.receivers import publish_state_pre_save, slugify_pre_save
+from videos.models import Video
+
 # Create your models here.
 
 class PlaylistQuerySet(models.QuerySet):
@@ -22,6 +24,7 @@ class Playlist(models.Model):
     title = models.CharField(max_length=220)
     description = models.TextField(blank=True, null=True)
     slug = models.SlugField(blank=True, null=True)
+    video = models.ForeignKey(Video, null=True, on_delete=models.SET_NULL)
     active = models.BooleanField(default=True)
     timestamp = models.DateTimeField(auto_now_add=True, blank=True,null=True)
     update = models.DateTimeField(auto_now_add=True, blank=True,null=True)
